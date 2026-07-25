@@ -4,7 +4,7 @@ This repository contains Java study material.
 
 ## Files
 
-1. [1.Procedural_vs_OOPS.md](1.Procedural_vs_OOPS.md)
-2. [2.Class_Object.md](2.Class_Object.md)
-3. [3.Pillars_of_OOPS.md](3.Pillars_of_OOPS.md)
-4. [4.Java_Basics.md](4.Java_Basics.md)
+1. [01.Procedural_vs_OOPS.md](01.Procedural_vs_OOPS.md)
+2. [02.Class_Object.md](02.Class_Object.md)
+3. [03.Pillars_of_OOPS.md](03.Pillars_of_OOPS.md)
+4. [04.Java_Basics.md](04.Java_Basics.md)
