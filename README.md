@@ -10,4 +10,4 @@ This repository contains Java study material.
 4. [03.Pillars_of_OOPS.md](03.Pillars_of_OOPS.md)
 5. [04.Java_Basics.md](04.Java_Basics.md)
 6. [05.Variables.md](05.Variables.md)
-7. [6.PrimitiveDataTypes.md](6.PrimitiveDataTypes.md)
+7. [06.PrimitiveDataTypes.md](06.PrimitiveDataTypes.md)
