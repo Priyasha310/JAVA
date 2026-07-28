@@ -469,4 +469,20 @@ Types of methods:
 1. System defined methods: methods that are predefined in Java, such as `main()`, `toString()`, `equals()`, etc. Provided by JRE.
 2. User defined methods: methods that are defined by the user to perform specific tasks.
 3. Overloaded methods: methods that have the same name but different parameter lists (number, type, or order of parameters).
+4. Static methods: methods that belong to the class rather than an instance of the class. They can be called without creating an object of the class.
+5. Instance methods: methods that belong to an instance of a class. They can access instance variables and are called on objects of the class.
+6. Final methods: methods that cannot be overridden by subclasses. They are declared using the `final` keyword.
 
+### When to declare methods static?
+Methods should be declared static when they do not depend on instance variables or instance methods of the class.
+Utility or helper methods that perform operations without needing to access instance data are good candidates for static methods. 
+
+Variable arguments (varargs): allows a method to accept zero or more arguments of a specified type. It is denoted by an ellipsis (`...`) in the parameter list. Only one argument can be declared as varargs, and it must be the last parameter in the method signature.
+Example:
+```java
+void printNumbers(int... numbers) {
+    for (int number : numbers) {
+        System.out.println(number);
+    }
+}
+```
