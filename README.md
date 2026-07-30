@@ -14,3 +14,6 @@ This repository contains Java study material.
 07. [06.PrimitiveDataTypes.md](06.PrimitiveDataTypes.md)
 08. [07.NonPrimitive_Data_Types.md](07.NonPrimitive_Data_Types.md)
 09. [08.Java_Methods.md](08.Java_Methods.md)
+10. [09.Constructors.md](09.Constructors.md)
+11. [10.JVM_Memory_Management.md](10.JVM_Memory_Management.md)
+12. [11.Garbage_Collection.md](11.Garbage_Collection.md)
