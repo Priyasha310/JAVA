@@ -36,7 +36,6 @@ class Student {
 public class Test {
 
     public static void main(String[] args) {
-
         Student s = new Student();
     }
 }
@@ -161,7 +160,6 @@ If you write **any constructor**, Java **does not** generate the default constru
 class Student {
 
     Student(int id){
-
     }
 }
 

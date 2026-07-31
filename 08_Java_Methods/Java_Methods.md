@@ -226,9 +226,7 @@ class Dog extends Animal {
 public class Test {
 
     public static void main(String[] args) {
-
         Animal obj = new Dog();
-
         obj.sound();
     }
 }
@@ -283,9 +281,7 @@ If the method signature is incorrect, the compiler reports an error.
 
 ```java
 class Animal {
-
     void sound() {
-
     }
 }
 
@@ -293,7 +289,6 @@ class Dog extends Animal {
 
     @Override
     void sound() {
-
     }
 }
 ```
@@ -342,7 +337,6 @@ class Calculator {
 public class Test {
 
     public static void main(String[] args) {
-
         Calculator.display();
     }
 }
@@ -397,9 +391,7 @@ class Student {
 public class Test {
 
     public static void main(String[] args) {
-
         Student s = new Student();
-
         s.study();
     }
 }
@@ -487,7 +479,6 @@ abstract returnType methodName();
 
 ```java
 abstract class Animal {
-
     abstract void sound();
 }
 ```

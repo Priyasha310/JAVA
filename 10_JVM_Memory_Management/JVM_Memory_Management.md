@@ -69,16 +69,13 @@ java.lang.StackOverflowError
 
 ```java
 class Student {
-
     String name = "Priyasha";
 }
 
 public class Test {
 
     public static void main(String[] args) {
-
         int age = 25;
-
         Student s = new Student();
     }
 }
