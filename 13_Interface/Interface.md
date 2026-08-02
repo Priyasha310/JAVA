@@ -23,16 +23,12 @@ Without Interface
 
 ```java
 class CreditCard {
-
     void pay() {
-
     }
 }
 
 class UPI {
-
     void pay() {
-
     }
 }
 ```
@@ -45,7 +41,6 @@ Using Interface
 
 ```java
 interface Payment {
-
     void pay();
 }
 
@@ -53,7 +48,6 @@ class CreditCard implements Payment {
 
     @Override
     public void pay() {
-
     }
 }
 
@@ -61,7 +55,6 @@ class UPI implements Payment {
 
     @Override
     public void pay() {
-
     }
 }
 ```
@@ -85,7 +78,6 @@ Every payment class must implement `pay()`.
 
 ```java
 interface Animal {
-
     void sound();
 }
 ```
@@ -97,7 +89,6 @@ class Dog implements Animal {
 
     @Override
     public void sound() {
-
         System.out.println("Dog barks");
     }
 }
@@ -111,7 +102,6 @@ An interface declares **what should be done**, while the implementing class deci
 
 ```java
 interface Car {
-
     void start();
 }
 ```
@@ -130,14 +120,11 @@ Internal implementation remains hidden.
 
 ```java
 interface Animal {
-
     void sound();
 }
 
 class Dog implements Animal {
-
     public void sound() {
-
         System.out.println("Dog");
     }
 }
@@ -145,7 +132,6 @@ class Dog implements Animal {
 class Cat implements Animal {
 
     public void sound() {
-
         System.out.println("Cat");
     }
 }
@@ -155,7 +141,6 @@ Usage
 
 ```java
 Animal animal = new Dog();
-
 animal.sound();
 ```
 
@@ -169,7 +154,6 @@ Changing only the object changes the behavior.
 
 ```java
 animal = new Cat();
-
 animal.sound();
 ```
 
@@ -197,23 +181,19 @@ However, a class can implement multiple interfaces.
 
 ```java
 interface Camera {
-
     void click();
 }
 
 interface Music {
-
     void play();
 }
 
 class Phone implements Camera, Music {
 
     public void click() {
-
     }
 
     public void play() {
-
     }
 }
 ```
@@ -242,7 +222,6 @@ No implementation.
 
 ```java
 interface Animal {
-
     void sound();
 }
 ```
@@ -263,7 +242,6 @@ Has implementation.
 interface Animal {
 
     default void sleep() {
-
         System.out.println("Sleeping");
     }
 }
@@ -283,7 +261,6 @@ Belongs to the interface.
 interface MathUtil {
 
     static int square(int x) {
-
         return x * x;
     }
 }
@@ -305,7 +282,6 @@ Used only inside the interface.
 interface Demo {
 
     private void display() {
-
     }
 }
 ```
@@ -340,7 +316,6 @@ Example
 
 ```java
 interface Demo {
-
     int MAX = 100;
 }
 ```
@@ -359,7 +334,6 @@ Cannot be modified.
 
 ```java
 interface Animal {
-
     void sound();
 }
 
@@ -367,7 +341,6 @@ class Dog implements Animal {
 
     @Override
     public void sound() {
-
         System.out.println("Dog");
     }
 }
@@ -433,15 +406,12 @@ abstract class AnimalImpl implements Animal {
 
 ```java
 interface Camera {
-
 }
 
 interface Music {
-
 }
 
 class Phone implements Camera, Music {
-
 }
 ```
 
@@ -457,7 +427,6 @@ An interface declared inside another interface or class.
 interface Outer {
 
     interface Inner {
-
         void display();
     }
 }
@@ -469,7 +438,6 @@ Implementation
 class Demo implements Outer.Inner {
 
     public void display() {
-
     }
 }
 ```
@@ -598,7 +566,6 @@ Yes.
 
 ```java
 class A implements X, Y {
-
 }
 ```
 
@@ -610,11 +577,9 @@ Yes.
 
 ```java
 interface A {
-
 }
 
 interface B extends A {
-
 }
 ```
 
@@ -622,7 +587,6 @@ Multiple interface inheritance is also allowed.
 
 ```java
 interface C extends A, B {
-
 }
 ```
 
