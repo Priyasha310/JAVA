@@ -1,30 +1,37 @@
-# Generic Class
+# Generic Class in Java
 
-## What is a Generic Class?
+Introduced in **Java 5**, Generics allow classes, interfaces, and methods to work with different data types while providing **compile-time type safety**.
 
-A **Generic Class** is a class that can work with different data types using **type parameters**. Instead of hardcoding a specific data type, the actual type is specified when creating the object.
+---
 
-Introduced in **Java 5**.
+# What is a Generic Class?
+
+A **Generic Class** is a class that can work with different data types using **type parameters**.
+
+Instead of hardcoding a data type, the actual type is specified when creating the object.
 
 ---
 
 ## Why Do We Need Generic Classes?
 
-Without Generics:
+Without Generics
 
 - No compile-time type safety.
 - Explicit type casting is required.
 - Higher chance of `ClassCastException`.
 - Duplicate code for different data types.
 
-With Generics:
+With Generics
 
-- Compile-time Type Safety
-- Code Reusability
-- Eliminates Explicit Type Casting
-- Better Readability
+- Compile-time Type Safety.
+- Code Reusability.
+- Eliminates Explicit Type Casting.
+- Better Readability.
+- Reduces Runtime Errors.
 
 ---
+
+# How to Define a Generic Class
 
 ## Syntax
 
@@ -36,9 +43,19 @@ class Box<T> {
 
 `T` is called a **Type Parameter**.
 
+Common naming conventions
+
+| Type Parameter | Meaning |
+|---------------|---------|
+| T | Type |
+| E | Element |
+| K | Key |
+| V | Value |
+| N | Number |
+
 ---
 
-## Example
+# Generic Class Example
 
 ```java
 class Box<T> {
@@ -67,7 +84,37 @@ String str = box.getValue();
 
 ---
 
-## Multiple Type Parameters
+# How It Works
+
+```java
+Box<String> box = new Box<>();
+```
+
+Compiler internally understands
+
+```text
+T → String
+```
+
+Similarly
+
+```java
+Box<Integer> box = new Box<>();
+```
+
+Compiler understands
+
+```text
+T → Integer
+```
+
+Thus, the same class works with multiple data types.
+
+---
+
+# Multiple Type Parameters
+
+A Generic Class can have more than one type parameter.
 
 ```java
 class Pair<K, V> {
@@ -76,6 +123,7 @@ class Pair<K, V> {
     private V value;
 
     Pair(K key, V value) {
+
         this.key = key;
         this.value = value;
     }
@@ -91,29 +139,85 @@ Pair<Integer, String> student =
 
 ---
 
-## Bounded Generic Class
+# Generic Class Inheritance
 
-Restricts the allowed types.
+Generic classes fully support inheritance.
 
 ```java
-class Calculator<T extends Number> {
+class Box<T> {
 
-    T number;
+    T value;
+}
+
+class GiftBox<T> extends Box<T> {
+
 }
 ```
 
-Allowed
+Usage
 
 ```java
-Calculator<Integer>
-Calculator<Double>
-Calculator<Float>
+GiftBox<String> gift = new GiftBox<>();
 ```
 
-Not Allowed
+---
+
+# Non-Generic Subclass
+
+A generic parent can have a non-generic child.
 
 ```java
-Calculator<String>   // Compile-time Error
+class Box<T> {
+
+    T value;
+}
+
+class StringBox extends Box<String> {
+
+}
+```
+
+Usage
+
+```java
+StringBox box = new StringBox();
+```
+
+Here,
+
+```text
+T → String
+```
+
+The type is permanently fixed.
+
+---
+
+# Generic Subclass
+
+The child class can also remain generic.
+
+```java
+class Box<T> {
+
+    T value;
+}
+
+class NumberBox<T> extends Box<T> {
+
+}
+```
+
+It may even introduce additional type parameters.
+
+```java
+class Pair<K, V> {
+
+}
+
+class Employee<K, V> extends Pair<K, V> {
+
+}
 ```
 
 ---
@@ -122,49 +226,29 @@ Calculator<String>   // Compile-time Error
 
 A Generic Class makes **the entire class generic**.
 
-However, in many scenarios, **only one or two methods need to work with different data types**, while the rest of the class has nothing to do with Generics.
+Sometimes only one or two methods need generic behavior.
 
-Making the whole class generic in such cases is unnecessary.
+Making the whole class generic becomes unnecessary.
 
-To solve this problem, Java provides **Generic Methods**.
+Java solves this using **Generic Methods**.
 
 ---
 
 ## Example
 
-Suppose we have a utility class.
+Instead of writing
 
 ```java
-class Printer {
+void print(String value)
 
-    public void print(String value) {
+void print(Integer value)
 
-        System.out.println(value);
-    }
-}
+void print(Double value)
+
+void print(Boolean value)
 ```
 
-Now we also want to print:
-
-- Integer
-- Double
-- Boolean
-
-One approach is **method overloading**.
-
-```java
-void print(String s)
-
-void print(Integer i)
-
-void print(Double d)
-
-void print(Boolean b)
-```
-
-This leads to duplicate code.
-
-Instead, we can write a **single Generic Method**.
+we write one generic method.
 
 ```java
 class Printer {
@@ -179,24 +263,22 @@ class Printer {
 Usage
 
 ```java
-Printer p = new Printer();
+Printer printer = new Printer();
 
-p.print("Java");
+printer.print("Java");
 
-p.print(100);
+printer.print(100);
 
-p.print(10.5);
+printer.print(10.5);
 
-p.print(true);
+printer.print(true);
 ```
-
-The compiler automatically infers the type.
 
 ---
 
-## Syntax of Generic Method
+# Generic Method Syntax
 
-The type parameter is declared **before the return type**.
+Type parameter is declared **before the return type**.
 
 ```java
 public <T> void display(T value) {
@@ -206,9 +288,9 @@ public <T> void display(T value) {
 
 ---
 
-## Scope of Type Parameter
+# Scope of Type Parameters
 
-For a **Generic Class**
+Generic Class
 
 ```java
 class Box<T> {
@@ -218,26 +300,301 @@ class Box<T> {
 
 `T` is available throughout the class.
 
-For a **Generic Method**
+---
+
+Generic Method
 
 ```java
-public <T> void display(T value) {
+public <T> void print(T value) {
 
 }
 ```
 
-`T` is available **only inside that method**.
+`T` exists only inside that method.
 
 ---
 
-## Generic Class vs Generic Method
+# Generic Class vs Generic Method
 
 | Generic Class | Generic Method |
 |----------------|----------------|
 | Entire class becomes generic | Only one method becomes generic |
-| Type parameter is available throughout the class | Type parameter is available only inside that method |
-| Suitable when most methods use the same generic type | Suitable when only one or a few methods need generic behavior |
+| Type parameter available throughout the class | Type parameter available only inside the method |
+| Used when most methods use the generic type | Used when only one or a few methods need Generics |
 | Example: `class Box<T>` | Example: `public <T> void print(T value)` |
+
+---
+
+# Raw Types
+
+## What is a Raw Type?
+
+A **Raw Type** is a generic class used **without specifying a type parameter**.
+
+Example
+
+```java
+Box box = new Box();
+```
+
+instead of
+
+```java
+Box<String> box = new Box<>();
+```
+
+---
+
+## Problems with Raw Types
+
+- Loses type safety.
+- Produces compiler warnings.
+- Can cause `ClassCastException`.
+
+Example
+
+```java
+Box box = new Box();
+
+box.setValue(100);
+
+String s = (String) box.getValue();
+```
+
+Runtime Error
+
+```
+ClassCastException
+```
+
+---
+
+# Bounded Generics
+
+Restricts the allowed types.
+
+Syntax
+
+```java
+<T extends ClassName>
+```
+
+Example
+
+```java
+class Calculator<T extends Number> {
+
+    T number;
+}
+```
+
+Allowed
+
+```java
+Calculator<Integer>
+
+Calculator<Double>
+
+Calculator<Float>
+```
+
+Not Allowed
+
+```java
+Calculator<String>
+```
+
+---
+
+# Upper Bound
+
+Upper Bound allows only a class and its subclasses.
+
+Syntax
+
+```java
+<T extends Number>
+```
+
+Accepted
+
+```text
+Number
+
+Integer
+
+Double
+
+Float
+
+Long
+```
+
+---
+
+# Multiple Bounds
+
+A type parameter may extend one class and implement multiple interfaces.
+
+Syntax
+
+```java
+<T extends ClassA & InterfaceA & InterfaceB>
+```
+
+Example
+
+```java
+class Demo<T extends Number & Comparable<T>> {
+
+}
+```
+
+Rules
+
+- Only one class allowed.
+- Class must come first.
+- Multiple interfaces allowed.
+
+---
+
+# Wildcards
+
+Wildcards represent **unknown generic types**.
+
+Syntax
+
+```java
+?
+```
+
+Example
+
+```java
+List<?> list;
+```
+
+---
+
+# Unbounded Wildcard
+
+Accepts any generic type.
+
+```java
+List<?>
+```
+
+Example
+
+```java
+void print(List<?> list)
+```
+
+Accepts
+
+```java
+List<String>
+
+List<Integer>
+
+List<Employee>
+```
+
+---
+
+# Upper Bounded Wildcard
+
+Accepts a class and its subclasses.
+
+Syntax
+
+```java
+<? extends Number>
+```
+
+Example
+
+```java
+List<? extends Number> list;
+```
+
+Accepted
+
+```java
+List<Integer>
+
+List<Double>
+
+List<Float>
+```
+
+Best for **Reading**.
+
+---
+
+# Lower Bounded Wildcard
+
+Accepts a class and its parent classes.
+
+Syntax
+
+```java
+<? super Integer>
+```
+
+Accepted
+
+```java
+List<Integer>
+
+List<Number>
+
+List<Object>
+```
+
+Best for **Writing**.
+
+---
+
+# PECS Principle
+
+One of the most asked interview questions.
+
+```
+Producer Extends
+Consumer Super
+```
+
+Meaning
+
+| Wildcard | Best Used For |
+|----------|---------------|
+| `extends` | Reading (Producer) |
+| `super` | Writing (Consumer) |
+
+---
+
+Reading Example
+
+```java
+List<? extends Number> numbers;
+```
+
+Safe to read.
+
+Cannot safely add values.
+
+---
+
+Writing Example
+
+```java
+List<? super Integer> numbers;
+```
+
+Safe to add `Integer`.
+
+Reading returns `Object`.
 
 ---
 
@@ -245,35 +602,48 @@ public <T> void display(T value) {
 
 Java implements Generics using **Type Erasure**.
 
-During compilation, generic type information is removed.
+During compilation,
 
 ```java
 Box<String>
+```
 
-↓
+becomes
 
+```java
 Box
 ```
 
-At runtime, the JVM works with the raw type.
+At runtime, generic type information is removed.
+
+The JVM works with the **raw type**.
+
+Purpose
+
+- Backward compatibility.
+- No runtime overhead.
 
 ---
 
-# Restrictions of Generic Classes
+# Restrictions of Generics
 
-- Cannot create an object of type parameter.
-
-```java
-new T();     // ❌
-```
-
-- Cannot create generic arrays.
+## Cannot create object of type parameter
 
 ```java
-T[] arr = new T[10];     // ❌
+new T();      // ❌
 ```
 
-- Cannot use primitive types.
+---
+
+## Cannot create Generic Arrays
+
+```java
+T[] arr = new T[10];      // ❌
+```
+
+---
+
+## Cannot use Primitive Types
 
 ```java
 Box<int>      // ❌
@@ -281,16 +651,22 @@ Box<int>      // ❌
 Box<Integer>  // ✅
 ```
 
-- Static members cannot use the type parameter.
+---
+
+## Static Members Cannot Use Type Parameter
 
 ```java
-class Box<T>{
+class Box<T> {
 
-    static T value;   // ❌
+    static T value;     // ❌
 }
 ```
 
-Reason: Static members belong to the class, whereas `T` belongs to object instances.
+Reason
+
+Static members belong to the class.
+
+Type parameters belong to object instances.
 
 ---
 
@@ -300,37 +676,52 @@ Reason: Static members belong to the class, whereas `T` belongs to object instan
 - Provides compile-time type safety.
 - Eliminates explicit casting.
 - Reduces `ClassCastException`.
-- Generic Class is used when **the entire class** depends on a generic type.
-- Generic Method is used when **only a particular method** needs generic behavior.
-- Generic Methods can also be `static`.
+- Generic Class is used when the entire class depends on a generic type.
+- Generic Method is used when only specific methods require generic behavior.
+- Generic Methods can be static.
+- Supports inheritance.
+- Supports multiple type parameters.
+- Supports bounded types.
+- Supports wildcards.
 - Uses Type Erasure internally.
-- Supports bounded types using `extends`.
-- Generics work only with reference types.
+- Works only with reference types.
+- Raw types should be avoided.
 
 ---
 
-# Most Asked Interview Questions
+# Most Asked Interview Questions ⭐
 
 1. What is a Generic Class?
 2. Why were Generics introduced?
-3. Why do we need Generic Methods if Generic Classes already exist?
-4. Generic Class vs Generic Method.
-5. What is Type Erasure?
-6. Why don't Generics support primitive types?
-7. What are bounded Generics?
-8. Why can't we write `new T()`?
-9. Why can't Generic Classes have `static T`?
-10. Can Generic Methods be static?
+3. What are Raw Types?
+4. Why should Raw Types be avoided?
+5. Generic Class vs Generic Method.
+6. Generic Class inheritance.
+7. Difference between Generic and Non-Generic subclass.
+8. What are Bounded Generics?
+9. Difference between `<T extends Number>` and `<? extends Number>`?
+10. What are Wildcards?
+11. Difference between Upper Bound and Lower Bound.
+12. What is PECS?
+13. What is Type Erasure?
+14. Why can't we write `new T()`?
+15. Why can't Generic Classes have `static T`?
+16. Why don't Generics support primitive types?
+17. Can Generic Methods be static?
 
 ---
 
 # Quick Revision
 
-- ✅ Generic Class → Entire class is generic.
-- ✅ Generic Method → Only one method is generic.
-- ✅ Generic Method was introduced to avoid making the entire class generic unnecessarily.
-- ✅ Type parameter in a Generic Method is declared before the return type.
-- ✅ Generic Class → `class Box<T>`
-- ✅ Generic Method → `public <T> void print(T value)`
+- ✅ Generic Class works with multiple data types.
+- ✅ Generic Methods make only one method generic.
+- ✅ Raw Types remove type safety.
+- ✅ `extends` is used for bounded generics.
+- ✅ Multiple bounds support one class and multiple interfaces.
+- ✅ `<?>` → Unbounded Wildcard.
+- ✅ `<? extends T>` → Upper Bounded Wildcard.
+- ✅ `<? super T>` → Lower Bounded Wildcard.
+- ✅ **PECS** → Producer Extends, Consumer Super.
 - ✅ Uses Type Erasure internally.
 - ✅ Works only with reference types.
+- ✅ Introduced in Java 5.
