@@ -457,6 +457,355 @@ Rules
 - Multiple interfaces allowed.
 
 ---
+# Why Do We Need Wildcards (`?`) in Java Generics?
+
+Consider the following example.
+
+```java
+class Vehicle { }
+
+class Car extends Vehicle { }
+
+class Bus extends Vehicle { }
+```
+
+Suppose we have a method that prints all vehicles.
+
+```java
+public class Print {
+
+    public void setPrintValues(List<Vehicle> vehicleList) {
+
+        for (Vehicle v : vehicleList) {
+            System.out.println(v);
+        }
+    }
+}
+```
+
+Now in `main()`,
+
+```java
+List<Vehicle> vehicleList = new ArrayList<>();
+
+vehicleList.add(new Bus());
+vehicleList.add(new Car());
+
+Print printObj = new Print();
+
+printObj.setPrintValues(vehicleList);      // ✅ Works
+```
+
+---
+
+## Now Suppose We Create
+
+```java
+List<Bus> busList = new ArrayList<>();
+
+busList.add(new Bus());
+```
+
+and call
+
+```java
+printObj.setPrintValues(busList);
+```
+
+Compilation Error
+
+```
+Required:
+List<Vehicle>
+
+Provided:
+List<Bus>
+```
+
+---
+
+# But Why?
+
+Because **Generics are Invariant in Java**.
+
+Although
+
+```
+Bus extends Vehicle
+```
+
+this **does NOT mean**
+
+```
+List<Bus> extends List<Vehicle>
+```
+
+These are completely different types.
+
+```
+Vehicle
+   ▲
+   │
+  Bus
+
+BUT
+
+List<Vehicle>      ❌      List<Bus>
+      (No inheritance relationship)
+```
+
+---
+
+# Why Doesn't Java Allow This?
+
+Suppose Java allowed it.
+
+```java
+List<Bus> busList = new ArrayList<>();
+
+List<Vehicle> vehicleList = busList;
+```
+
+Now this becomes possible
+
+```java
+vehicleList.add(new Car());    // Car is also a Vehicle
+```
+
+But internally,
+
+```
+busList
+```
+
+would now contain
+
+```
+Bus
+Car   ❌
+```
+
+which violates the type safety of `List<Bus>`.
+
+```
+List<Bus>
+
+├── Bus
+├── Bus
+└── Car ❌
+```
+
+To prevent this situation, Java makes Generic collections **Invariant**.
+
+---
+
+# Solution → Wildcards
+
+Instead of accepting exactly
+
+```java
+List<Vehicle>
+```
+
+accept
+
+```java
+List<? extends Vehicle>
+```
+
+```java
+public void setPrintValues(List<? extends Vehicle> vehicleList) {
+
+    for (Vehicle v : vehicleList) {
+        System.out.println(v);
+    }
+}
+```
+
+Now all these are valid.
+
+```java
+List<Vehicle>
+
+List<Car>
+
+List<Bus>
+```
+
+```
+             Vehicle
+           /         \
+         Car         Bus
+
+             ▲
+             │
+
+List<? extends Vehicle>
+
+Accepts
+
+✔ List<Vehicle>
+
+✔ List<Car>
+
+✔ List<Bus>
+```
+
+---
+
+# Why Does This Work?
+
+The compiler knows
+
+> "Whatever is inside the list is **at least a Vehicle**."
+
+Therefore,
+
+```java
+Vehicle v = vehicleList.get(0);
+```
+
+is perfectly safe.
+
+---
+
+# Can We Add Elements?
+
+No.
+
+```java
+vehicleList.add(new Vehicle());    // ❌
+
+vehicleList.add(new Car());        // ❌
+
+vehicleList.add(new Bus());        // ❌
+```
+
+Reason:
+
+The compiler doesn't know the actual list type.
+
+It could be
+
+```java
+List<Car>
+```
+
+or
+
+```java
+List<Bus>
+```
+
+If it allowed
+
+```java
+vehicleList.add(new Bus());
+```
+
+and the actual object was
+
+```java
+List<Car>
+```
+
+then
+
+```
+List<Car>
+
+Car
+Car
+Bus ❌
+```
+
+would become possible.
+
+Therefore,
+
+`? extends` is **read-only** (except `null`).
+
+---
+
+# Visual Representation
+
+Without Wildcards
+
+```
+Method
+
+setPrintValues(List<Vehicle>)
+
+             ▲
+
+Only accepts
+
+List<Vehicle>
+```
+
+---
+
+With Wildcards
+
+```
+setPrintValues(List<? extends Vehicle>)
+
+                 ▲
+
+      ┌──────────┼──────────┐
+
+List<Vehicle>  List<Car>  List<Bus>
+
+        ✔           ✔          ✔
+```
+
+---
+
+# Interview Point
+
+Remember the PECS principle:
+
+- **Producer → Extends**
+- **Consumer → Super**
+
+If the collection only **produces (reads)** data → use `extends`.
+
+If the collection **consumes (writes)** data → use `super`.
+
+---
+
+# Most Asked Interview Questions ⭐
+
+### Why can't `List<Bus>` be passed to a method accepting `List<Vehicle>`?
+
+Because **Generics are invariant** in Java. `Bus` is a subclass of `Vehicle`, but `List<Bus>` is **not** a subclass of `List<Vehicle>`.
+
+---
+
+### Why do we need Wildcards?
+
+Wildcards provide **flexibility** by allowing methods to accept collections of a type and its subclasses while preserving compile-time type safety.
+
+---
+
+### Why can't we add elements to `List<? extends Vehicle>`?
+
+Because the compiler doesn't know the actual subtype (`Car`, `Bus`, etc.). Allowing insertion could violate type safety.
+
+---
+
+# Quick Revision
+
+- ✅ `List<Bus>` is **NOT** a subtype of `List<Vehicle>`.
+- ✅ Java Generics are **Invariant**.
+- ✅ `? extends Vehicle` accepts `Vehicle` and all its subclasses.
+- ✅ `? extends` is mainly for **reading** data.
+- ✅ Cannot add elements (except `null`) to `List<? extends Vehicle>`.
+- ✅ Use **PECS**:
+  - **Producer → Extends**
+  - **Consumer → Super**
+
+---
 
 # Wildcards
 
@@ -622,6 +971,63 @@ Purpose
 
 - Backward compatibility.
 - No runtime overhead.
+
+---
+
+# Wildcard Method vs Generic Type Method
+
+## Wildcard Method
+
+Uses upper bounded wildcard to restrict types.
+
+```java
+package Generics;
+
+import java.util.List;
+
+public class Print {
+
+    //wild card method
+    public void computeList(List<? extends Number> source, List<? extends Number> destination){
+
+    }
+}
+```
+
+Best for **reading** data from the list.
+
+Cannot safely add elements to the list.
+
+---
+
+## Generic Type Method
+
+Uses bounded type parameter for generic behavior.
+
+```java
+public class Print {
+
+    //generic type method
+    public <T extends Number> void computeList1(List<T> source, List<T> destination){
+
+    }
+}
+```
+
+Both parameters use the **same type** `T`.
+
+Better when you need to work with both source and destination of the same type.
+
+---
+
+## Key Difference
+
+| Wildcard Method | Generic Type Method |
+|----------------|-------------------|
+| `List<? extends Number>` | `<T extends Number>` |
+| Source and destination can be different Number subtypes | Source and destination must be the same type T |
+| Best for reading | Best for reading and writing |
+| Cannot add elements | Can work with both parameters uniformly |
 
 ---
 
