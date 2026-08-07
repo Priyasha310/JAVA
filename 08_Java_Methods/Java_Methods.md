@@ -613,7 +613,7 @@ Dog Barks
 | Declared using `final` | No `final` keyword |
 
 ---
-# Variable Arguements
+# Variable Arguments
 varargs allows a method to accept zero or more arguments of a specified type. It is denoted by an ellipsis (`...`) in the parameter list. Only one argument can be declared as varargs, and it must be the last parameter in the method signature.
 
 Example:
