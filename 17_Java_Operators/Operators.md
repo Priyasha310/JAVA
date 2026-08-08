@@ -894,6 +894,7 @@ From higher to lower precedence:
 |         13 | Logical OR             | `\|\|`                                                                     | Left → Right  |
 |         14 | Ternary                | `?:`                                                                       | Right → Left  |
 |         15 | Assignment             | `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `\|=`, `<<=`, `>>=`, `>>>=` | Right → Left  |
+```
 
 ### Best Practice
 
