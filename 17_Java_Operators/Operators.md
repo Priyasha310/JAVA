@@ -876,49 +876,24 @@ Result:
 
 From higher to lower precedence:
 
-```text
-1.  Postfix
-    expr++  expr--
-
-2.  Unary
-    ++  --  +  -  !  ~
-
-3.  Multiplicative
-    *  /  %
-
-4.  Additive
-    +  -
-
-5.  Shift
-    <<  >>  >>>
-
-6.  Relational
-    <  <=  >  >=
-
-7.  Equality
-    ==  !=
-
-8.  Bitwise AND
-    &
-
-9.  Bitwise XOR
-    ^
-
-10. Bitwise OR
-    |
-
-11. Logical AND
-    &&
-
-12. Logical OR
-    ||
-
-13. Ternary
-    ? :
-
-14. Assignment
-    =  +=  -=  *=  /= ...
 ```
+| Precedence | Operator Category      | Operators                                                                  | Associativity |
+| ---------: | ---------------------- | -------------------------------------------------------------------------- | ------------- |
+|          1 | Parentheses / Brackets | `()`, `[]`                                                                 | Left → Right  |
+|          2 | Unary: Postfix         | `expr++`, `expr--`                                                         | Left → Right  |
+|          3 | Unary: Prefix          | `++expr`, `--expr`, `+expr`, `-expr`, `~`, `!`                             | Right → Left  |
+|          4 | Multiplicative         | `*`, `/`, `%`                                                              | Left → Right  |
+|          5 | Additive               | `+`, `-`                                                                   | Left → Right  |
+|          6 | Bitwise Shift          | `<<`, `>>`, `>>>`                                                          | Left → Right  |
+|          7 | Relational             | `<`, `>`, `<=`, `>=`, `instanceof`                                         | Left → Right  |
+|          8 | Equality               | `==`, `!=`                                                                 | Left → Right  |
+|          9 | Bitwise AND            | `&`                                                                        | Left → Right  |
+|         10 | Bitwise XOR            | `^`                                                                        | Left → Right  |
+|         11 | Bitwise OR             | `\|`                                                                       | Left → Right  |
+|         12 | Logical AND            | `&&`                                                                       | Left → Right  |
+|         13 | Logical OR             | `\|\|`                                                                     | Left → Right  |
+|         14 | Ternary                | `?:`                                                                       | Right → Left  |
+|         15 | Assignment             | `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `\|=`, `<<=`, `>>=`, `>>>=` | Right → Left  |
 
 ### Best Practice
 
