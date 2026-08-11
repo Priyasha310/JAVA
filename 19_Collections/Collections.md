@@ -122,23 +122,22 @@ It represents a group of objects.
 
 Common methods:
 
-``` 
-| Method                      | Functionality                                              |
-| --------------------------- | ---------------------------------------------------------- |
-| `add(E e)`                  | Adds one element to the collection                         |
-| `addAll(Collection c)`      | Adds all elements from another collection                  |
-| `remove(Object o)`          | Removes the specified element                              |
-| `removeAll(Collection c)`   | Removes elements that are present in another collection    |
-| `retainAll(Collection c)`   | Keeps only elements that are present in another collection |
-| `contains(Object o)`        | Checks whether an element exists                           |
-| `containsAll(Collection c)` | Checks whether all elements of another collection exist    |
-| `size()`                    | Returns the number of elements                             |
-| `isEmpty()`                 | Checks whether the collection is empty                     |
-| `clear()`                   | Removes all elements                                       |
-| `iterator()`                | Returns an iterator for traversing elements                |
-| `toArray()`                 | Converts the collection into an array                      |
-
-```
+| Method                          | Usage                                                                 |
+| ------------------------------- | --------------------------------------------------------------------- |
+| `size()`                        | Returns the total number of elements present in the collection.       |
+| `isEmpty()`                     | Checks if the collection is empty or has some value. Returns `true`/`false`. |
+| `contains(Object o)`            | Searches for an element in the collection. Returns `true`/`false`.    |
+| `toArray()`                     | Converts the collection into an array.                                |
+| `add(E e)`                      | Inserts an element at the end of the collection.                      |
+| `remove(Object o)`              | Removes the first occurrence of the element from the collection.      |
+| `addAll(Collection<? extends E> c)` | Inserts all elements of the specified collection at the end.   |
+| `removeAll(Collection<?> c)`     | Removes all elements from this collection that are present in the given collection. |
+| `retainAll(Collection<?> c)`     | Keeps only the elements that are present in the given collection.     |
+| `containsAll(Collection<?> c)`  | Checks whether all elements of another collection exist.             |
+| `clear()`                       | Removes all elements from the collection.                             |
+| `equals(Object o)`              | Checks if two collections are equal.                                  |
+| `stream()` / `parallelStream()` | Provides an effective way to work with collection data using streams. |
+| `iterator()`                    | Returns an iterator used to traverse the collection.                  |
 
 Example:
 
@@ -213,6 +212,27 @@ normal iterator.
   No `add()`                         Supports `add()`
   No `set()`                         Supports `set()`
 
+### ListIterator methods
+
+Forward iteration
+
+- `hasNext()` — returns `true` if there is a next element.
+- `next()` — returns the next element and advances the cursor.
+- `nextIndex()` — returns the index of the element that would be returned by `next()`.
+
+Backward iteration
+
+- `hasPrevious()` — returns `true` if there is a previous element.
+- `previous()` — returns the previous element and moves the cursor backward.
+- `previousIndex()` — returns the index of the element that would be returned by `previous()`.
+
+Modification methods
+
+- `remove()` — removes the last element returned by `next()` or `previous()`.
+- `set(E e)` — replaces the last returned element with the specified element.
+- `add(E e)` — inserts the specified element at the current position.
+
+
 Example:
 
 ``` java
@@ -251,6 +271,25 @@ names.add("Alice");
 ```
 
 Result contains both `"Alice"` values.
+
+------------------------------------------------------------------------
+
+### Common `List` methods
+
+| Method                          | Functionality                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------------- |
+| `add(int index, E element)`     | Inserts an element at the specific position and shifts later elements right.   |
+| `addAll(int index, Collection<? extends E> c)` | Inserts all elements from the given collection starting at the specified index. |
+| `replaceAll(UnaryOperator<E> operator)` | Replaces each element with the result of applying the operator.            |
+| `sort(Comparator<? super E> c)` | Sorts the list by the given comparator.                                      |
+| `get(int index)`                | Returns the element at the specified position in the list.                  |
+| `set(int index, E element)`     | Replaces the element at the specified index.                                 |
+| `remove(int index)`             | Removes the element at the specified index and shifts remaining elements left. |
+| `indexOf(Object o)`             | Returns the index of the first occurrence of the specified element, or -1 if not found. |
+| `lastIndexOf(Object o)`         | Returns the index of the last occurrence of the specified element, or -1 if not found. |
+| `listIterator()`                | Returns a `ListIterator` for bidirectional traversal of the list.           |
+| `listIterator(int index)`       | Returns a `ListIterator` starting at the specified index.                   |
+| `subList(int fromIndex, int toIndex)` | Returns a view of the portion of the list between `fromIndex` (inclusive) and `toIndex` (exclusive). |
 
 ------------------------------------------------------------------------
 
@@ -710,6 +749,27 @@ stack.pop(); // 20
 For stack/queue/deque operations, `ArrayDeque` is usually preferred over
 legacy `Stack` or `LinkedList` when their extra features are not
 required.
+
+## `doubleCapacity()` in ArrayDeque
+
+- `ArrayDeque` internally uses a **circular array**.
+- When the array becomes full, it needs to **resize/grow**.
+- `doubleCapacity()` creates a larger array, typically **doubling the capacity** in implementations that use this method.
+- Existing elements are copied to the new array while maintaining their order.
+- `head` and `tail` are then adjusted for the new array.
+
+### Example
+
+```text
+Old capacity = 8
+       ↓
+Array becomes full
+       ↓
+New capacity = 16
+       ↓
+Copy elements
+       ↓
+Continue insertion
 
 ------------------------------------------------------------------------
 
