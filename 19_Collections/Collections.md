@@ -458,6 +458,22 @@ Prefer `ArrayList` for modern non-concurrent code.
 
 ------------------------------------------------------------------------
 
+# 11.1 Collection Comparison
+
+| Collection             | Thread-safe | Maintains insertion order | Allows nulls | Allows duplicates | Thread-safe version |
+| ---------------------- | ----------- | ------------------------- | ------------ | ----------------- | ------------------- |
+| `ArrayList`            | No          | Yes                       | Yes          | Yes               | `CopyOnWriteArrayList` |
+| `LinkedList`           | No          | Yes                       | Yes          | Yes               | `Collections.synchronizedList(new LinkedList<>())` |
+| `Vector`               | Yes         | Yes                       | Yes          | Yes               | N/A |
+| `Stack`                | Yes         | Yes                       | Yes          | Yes               | N/A |
+| `HashSet`              | No          | No                        | Yes          | No                | `Collections.synchronizedSet(new HashSet<>())` |
+| `LinkedHashSet`        | No          | Yes                       | Yes          | No                | `Collections.synchronizedSet(new LinkedHashSet<>())` |
+| `TreeSet`              | No          | No                        | No           | No                | `Collections.synchronizedSortedSet(new TreeSet<>())` |
+| `PriorityQueue`        | No          | No                        | Yes          | Yes               | `PriorityBlockingQueue` |
+| `ArrayDeque`           | No          | No                        | Yes          | Yes               | `Collections.synchronizedCollection(new ArrayDeque<>())` |
+
+------------------------------------------------------------------------
+
 # 12. Stack
 
 `Stack` is a legacy class extending `Vector`.
