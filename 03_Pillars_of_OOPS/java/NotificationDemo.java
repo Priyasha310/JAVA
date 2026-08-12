@@ -1,5 +1,9 @@
+// Abstraction: `Notification` defines the high-level concept of a
+// notification without exposing implementation details. Concrete
+// subclasses provide specific sending behavior (email, SMS, push).
 abstract class Notification {
 
+    // Encapsulated state shared by all notifications
     private String recipient;
 
     public Notification(String recipient) {
@@ -10,7 +14,10 @@ abstract class Notification {
         return recipient;
     }
 
-    // Abstract method
+    // Abstract method: defines the contract for sending a message.
+    // Subclasses must implement this method. This is the essence of
+    // abstraction — the caller knows *what* can be done (send), but not
+    // *how* it is done by each concrete type.
     public abstract void send(String message);
 }
 
@@ -24,7 +31,7 @@ class EmailNotification extends Notification {
 
     @Override
     public void send(String message) {
-
+        // Concrete implementation for email delivery
         System.out.println(
                 "Sending Email to " +
                         getRecipient() +
@@ -44,12 +51,12 @@ class SMSNotification extends Notification {
 
     @Override
     public void send(String message) {
-
+        // Concrete implementation for SMS delivery
         System.out.println(
-                "Sending SMS to " +
-                        getRecipient() +
-                        ": " +
-                        message
+            "Sending SMS to " +
+                getRecipient() +
+                ": " +
+                message
         );
     }
 }
@@ -64,12 +71,12 @@ class PushNotification extends Notification {
 
     @Override
     public void send(String message) {
-
+        // Concrete implementation for push notification delivery
         System.out.println(
-                "Sending Push Notification to " +
-                        getRecipient() +
-                        ": " +
-                        message
+            "Sending Push Notification to " +
+                getRecipient() +
+                ": " +
+                message
         );
     }
 }
@@ -80,14 +87,16 @@ public class NotificationDemo {
 
     public static void main(String[] args) {
 
-        Notification email =
-                new EmailNotification("abc@gmail.com");
+        // Use the abstract type `Notification` to hold concrete
+        // implementations. The code that uses these objects does not
+        // need to know the concrete class — it relies on the abstract
+        // contract (`send`) only. This is runtime polymorphism enabled
+        // by abstraction.
+        Notification email = new EmailNotification("abc@gmail.com");
 
-        Notification sms =
-                new SMSNotification("9876543210");
+        Notification sms = new SMSNotification("9876543210");
 
-        Notification push =
-                new PushNotification("user123");
+        Notification push = new PushNotification("user123");
 
         email.send("Your order has been shipped.");
 
