@@ -1115,8 +1115,6 @@ condition ? a : b
 
 # 18. Most Important Interview Topics
 
-For a 2–3 YOE Java interview, focus especially on:
-
 1. `==` vs `.equals()`
 2. `&&` vs `&`
 3. `||` vs `|`

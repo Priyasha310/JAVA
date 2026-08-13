@@ -1,4 +1,4 @@
-# Java Annotations (Interview Notes)
+# Java Annotations
 
 ## What is an Annotation?
 

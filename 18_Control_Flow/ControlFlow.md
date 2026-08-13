@@ -1,9 +1,4 @@
-# Java Control Flow Statements --- Complete Interview Notes
-
-> **Goal:** Understand Java decision-making, loops, and branching
-> statements clearly from an interview perspective.
->
-> **Interview level:** Suitable for Core Java / 2--3 YOE interviews.
+# Java Control Flow Statements
 
 ------------------------------------------------------------------------
 

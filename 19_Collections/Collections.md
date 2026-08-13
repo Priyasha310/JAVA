@@ -1,6 +1,4 @@
-# Java Collections Framework --- Interview Notes
-
-> Complete, interview-focused notes for Core Java / 2--3 YOE interviews.
+# Java Collections Framework
 
 ## 1. Java Collections Framework
 

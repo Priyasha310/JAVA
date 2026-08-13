@@ -1,4 +1,4 @@
-# Java Streams — Interview Notes (2–3 YOE)
+# Java Streams
 
 ## 1. What is a Stream?
 

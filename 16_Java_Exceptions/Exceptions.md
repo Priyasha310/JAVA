@@ -1,4 +1,4 @@
-# Java Exception Handling — Complete Interview Notes
+# Java Exception Handling
 
 ## 1. What is an Exception?
 
