@@ -89,6 +89,86 @@ IoC
        +-- Setter Injection
        +-- Field Injection
 ```
+# IoC vs DI vs DIP
+
+## 1. IoC — Inversion of Control
+
+**Type:** Principle / Idea
+
+> Control of object creation and dependency management is transferred from application code to an external container/framework.
+
+Spring implements IoC mainly through Dependency Injection.
+
+---
+
+## 2. DI — Dependency Injection
+
+**Type:** Technique / Approach
+
+> Dependencies are supplied to a class from outside instead of the class creating them itself.
+
+```java
+class OrderService {
+
+    private final NotificationService notificationService;
+
+    OrderService(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+}
+```
+
+**DI is a common technique used to achieve IoC.**
+
+---
+
+## 3. DIP — Dependency Inversion Principle
+
+**Type:** SOLID Design Principle
+
+> High-level modules should depend on abstractions, not concrete implementations.
+
+```java
+class OrderService {
+
+    private final NotificationService notificationService;
+}
+```
+
+`OrderService` depends on the `NotificationService` abstraction rather than `EmailService`.
+
+**DI can help implement DIP.**
+
+---
+
+## Relationship
+
+```text
+IoC
+│
+├── Principle / Idea
+│
+└── DI
+    └── Technique used to achieve IoC
+
+
+DIP
+└── SOLID Principle
+    └── Depend on abstractions
+        └── DI can help implement DIP
+```
+
+## Quick Comparison
+
+| Concept | Type | Key Idea |
+|---|---|---|
+| **IoC** | Principle | Control is transferred outside |
+| **DI** | Technique | Dependency is supplied from outside |
+| **DIP** | SOLID Principle | Depend on abstractions |
+
+### Interview Line
+
+> **IoC is the principle, DI is a technique to achieve IoC, and DIP is a SOLID principle that promotes dependency on abstractions.**
 
 ---
 

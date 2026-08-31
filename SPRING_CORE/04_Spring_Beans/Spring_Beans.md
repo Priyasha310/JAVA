@@ -1,5 +1,15 @@
 # Spring Beans
 
+## 0. Spring Framework → IOC Container
+
+**IOC Container** is responsible for:
+
+1. **Create Objects** — Instantiate beans/objects
+2. **Manage Objects** — Handle object lifecycle
+3. **Connects objects together** — Wire dependencies and connect objects
+
+---
+
 ## 1. What is a Spring Bean?
 
 A Spring Bean is an object that is:
