@@ -14,6 +14,9 @@ Instantiation
 Dependency Injection
       |
       v
+Aware Interfaces are called
+      |
+      v
 Initialization callbacks
       |
       v
@@ -141,6 +144,52 @@ For normal application code, annotations such as `@PostConstruct` and `@PreDestr
 For singleton Beans, Spring normally manages destruction callbacks.
 
 For prototype Beans, Spring creates and initializes them, but it does not generally manage their complete destruction lifecycle after handing them to the caller.
+
+---
+
+# 7. Aware interfaces
+
+Spring also provides special callback interfaces called Aware interfaces, which let a bean access container information during initialization.
+
+These are different from dependency injection: instead of Spring injecting a dependency, Spring notifies the bean about the environment it is running in.
+
+Common examples:
+
+```java
+beanNameAware
+BeanFactoryAware
+ApplicationContextAware
+```
+
+Example:
+
+```java
+@Component
+public class MyService implements BeanNameAware, ApplicationContextAware {
+
+    private String beanName;
+
+    @Override
+    public void setBeanName(String name) {
+        this.beanName = name;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext context) {
+        System.out.println("Bean name: " + beanName);
+    }
+}
+```
+
+These interfaces are useful when a bean needs to know its name, container, or runtime context without manually wiring it.
+
+In interview terms:
+
+- `BeanNameAware` → gives bean name
+- `BeanFactoryAware` → gives `BeanFactory`
+- `ApplicationContextAware` → gives `ApplicationContext`
+
+They are lifecycle hooks used for container awareness, not normal business logic injection.
 
 ---
 
